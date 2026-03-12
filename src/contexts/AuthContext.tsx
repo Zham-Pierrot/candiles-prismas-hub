@@ -20,6 +20,7 @@ const mockUsers: Record<UserRole, User> = {
   admin: { id: '1', name: 'Carlos Admin', email: 'admin@candiles.mx', role: 'admin' },
   vendedor: { id: '2', name: 'Laura Ventas', email: 'ventas@candiles.mx', role: 'vendedor' },
   instalador: { id: '3', name: 'Miguel Instalador', email: 'instalador@candiles.mx', role: 'instalador' },
+  contador: { id: '4', name: 'Patricia Contadora', email: 'contabilidad@candiles.mx', role: 'contador' },
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

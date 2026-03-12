@@ -12,6 +12,10 @@ import Productos from "@/pages/admin/Productos";
 import Cotizaciones from "@/pages/admin/Cotizaciones";
 import NotasVenta from "@/pages/admin/NotasVenta";
 import Facturacion from "@/pages/admin/Facturacion";
+import Proyectos from "@/pages/admin/Proyectos";
+import Inventario from "@/pages/admin/Inventario";
+import Reportes from "@/pages/admin/Reportes";
+import Agenda from "@/pages/admin/Agenda";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +37,10 @@ const App = () => (
               <Route path="cotizaciones" element={<Cotizaciones />} />
               <Route path="notas-venta" element={<NotasVenta />} />
               <Route path="facturacion" element={<Facturacion />} />
+              <Route path="proyectos" element={<Proyectos />} />
+              <Route path="inventario" element={<Inventario />} />
+              <Route path="reportes" element={<Reportes />} />
+              <Route path="agenda" element={<Agenda />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
