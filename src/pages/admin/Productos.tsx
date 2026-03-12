@@ -30,7 +30,7 @@ export default function Productos() {
 
   const startNew = () => {
     setIsNew(true);
-    setEditing({ id: '', name: '', description: '', category: 'Candiles', price: 0, image: '/placeholder.svg', sku: '' });
+    setEditing({ id: '', name: '', description: '', category: 'Candiles', price: 0, image: '/placeholder.svg', sku: '', stock: 0, minStock: 0, costPrice: 0 });
   };
 
   if (editing) {
