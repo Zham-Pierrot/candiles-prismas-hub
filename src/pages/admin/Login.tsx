@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, ShoppingBag, Wrench } from 'lucide-react';
+import { Shield, ShoppingBag, Wrench, Calculator } from 'lucide-react';
 
 const roles: { value: UserRole; label: string; icon: React.ElementType; desc: string }[] = [
-  { value: 'admin', label: 'Administrador', icon: Shield, desc: 'Acceso completo al sistema' },
+  { value: 'admin', label: 'Administrador', icon: Shield, desc: 'Acceso completo' },
   { value: 'vendedor', label: 'Vendedor', icon: ShoppingBag, desc: 'Cotizaciones y ventas' },
+  { value: 'contador', label: 'Contador', icon: Calculator, desc: 'Finanzas y reportes' },
   { value: 'instalador', label: 'Instalador', icon: Wrench, desc: 'Proyectos y agenda' },
 ];
 
@@ -36,7 +37,7 @@ export default function Login() {
             CP
           </div>
           <h1 className="font-heading text-2xl font-bold">Candiles y Prismas</h1>
-          <p className="text-muted-foreground mt-1">Panel de Administración</p>
+          <p className="text-muted-foreground mt-1">Panel de Administración PRO</p>
         </div>
 
         <Card>
@@ -46,7 +47,7 @@ export default function Login() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {roles.map((r) => (
                   <button
                     key={r.value}
@@ -59,7 +60,7 @@ export default function Login() {
                     }`}
                   >
                     <r.icon className={`h-5 w-5 ${selectedRole === r.value ? 'text-primary' : 'text-muted-foreground'}`} />
-                    <span className="text-xs font-medium">{r.label}</span>
+                    <span className="text-[10px] font-medium leading-tight">{r.label}</span>
                   </button>
                 ))}
               </div>
