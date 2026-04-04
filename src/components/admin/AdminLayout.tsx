@@ -2,6 +2,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AdminSidebar } from './AdminSidebar';
+import { NotificationCenter } from './NotificationCenter';
 
 export function AdminLayout() {
   const { isAuthenticated } = useAuth();
@@ -18,6 +19,9 @@ export function AdminLayout() {
           <header className="h-14 flex items-center border-b bg-card px-4 gap-4">
             <SidebarTrigger />
             <h1 className="font-heading font-semibold text-lg truncate">Candiles y Prismas</h1>
+            <div className="ml-auto">
+              <NotificationCenter />
+            </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <Outlet />
