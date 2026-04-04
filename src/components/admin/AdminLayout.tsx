@@ -19,6 +19,9 @@ export function AdminLayout() {
           <header className="h-14 flex items-center border-b bg-card px-4 gap-4">
             <SidebarTrigger />
             <h1 className="font-heading font-semibold text-lg truncate">Candiles y Prismas</h1>
+            <div className="ml-auto">
+              <NotificationCenter />
+            </div>
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <Outlet />
