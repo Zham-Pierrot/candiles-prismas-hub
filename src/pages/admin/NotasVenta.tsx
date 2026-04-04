@@ -168,7 +168,7 @@ export default function NotasVenta() {
             </div>
 
             <div className="flex gap-3">
-              <Button variant="outline" onClick={() => toast.info('Descarga de PDF próximamente')}><FileDown className="h-4 w-4 mr-2" /> PDF</Button>
+              <Button variant="outline" onClick={() => generateSaleNotePDF(viewing)}><FileDown className="h-4 w-4 mr-2" /> PDF</Button>
               {viewing.status === 'Pagado' && (
                 <Button variant="outline" onClick={() => toast.info('Facturación próximamente')}><FileCheck className="h-4 w-4 mr-2" /> Generar Factura</Button>
               )}

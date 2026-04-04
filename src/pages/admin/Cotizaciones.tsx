@@ -191,7 +191,7 @@ function QuoteForm({ quote, onSave, onCancel, isNew, onConvert }: {
 
             <div className="flex gap-3 pt-2 flex-wrap">
               <Button type="submit">{isNew ? 'Crear Cotización' : 'Guardar'}</Button>
-              <Button type="button" variant="outline" onClick={() => toast.info('Descarga de PDF próximamente')}><FileDown className="h-4 w-4 mr-2" /> PDF</Button>
+              <Button type="button" variant="outline" onClick={() => generateQuotePDF(form)}><FileDown className="h-4 w-4 mr-2" /> PDF</Button>
               <Button type="button" variant="outline" onClick={() => toast.info('Envío por correo próximamente')}><Send className="h-4 w-4 mr-2" /> Enviar</Button>
               <Button type="button" variant="outline" onClick={onCancel}>Cancelar</Button>
             </div>
