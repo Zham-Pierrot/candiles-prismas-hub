@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Plus, ArrowLeft, FileDown, Send, Receipt, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { generateQuotePDF } from '@/lib/pdfGenerator';
 
 const statusStyles: Record<QuoteStatus, string> = {
   Borrador: 'bg-muted text-muted-foreground',
