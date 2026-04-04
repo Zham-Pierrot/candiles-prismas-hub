@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ArrowLeft, FileDown, FileCheck, Plus, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
+import { generateSaleNotePDF } from '@/lib/pdfGenerator';
 
 const statusStyles: Record<SaleNoteStatus, string> = {
   Pendiente: 'bg-warning/10 text-warning',
