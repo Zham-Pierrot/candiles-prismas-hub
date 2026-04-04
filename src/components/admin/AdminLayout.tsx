@@ -2,6 +2,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AdminSidebar } from './AdminSidebar';
+import { NotificationCenter } from './NotificationCenter';
 
 export function AdminLayout() {
   const { isAuthenticated } = useAuth();
