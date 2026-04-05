@@ -17,23 +17,129 @@ export const mockProducts: Product[] = [
   { id: '6', name: 'Servicio de Limpieza', description: 'Limpieza profesional de candil cristal (por pieza)', category: 'Servicios', price: 3500, image: '/placeholder.svg', sku: 'SRV-LIM', stock: 999, minStock: 0, costPrice: 1500 },
 ];
 
-export const mockQuotes: Quote[] = [
-  { id: '1', number: 'COT-2025-001', clientId: '2', clientName: 'Hotel Grand Palace', date: '2025-02-15', items: [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 3, unitPrice: 68000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }], subtotal: 219000, iva: 35040, total: 254040, status: 'Aceptada' },
-  { id: '2', number: 'COT-2025-002', clientId: '1', clientName: 'María García López', date: '2025-03-01', items: [{ productId: '1', productName: 'Candil Clásico Imperial', quantity: 1, unitPrice: 45000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 1, unitPrice: 5000 }], subtotal: 50000, iva: 8000, total: 58000, status: 'Enviada' },
-  { id: '3', number: 'COT-2025-003', clientId: '3', clientName: 'Restaurante La Hacienda', date: '2025-03-05', items: [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 5, unitPrice: 28000 }, { productId: '4', productName: 'Lámpara Colgante Diamante', quantity: 8, unitPrice: 12000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 13, unitPrice: 5000 }], subtotal: 301000, iva: 48160, total: 349160, status: 'Borrador' },
-  { id: '4', number: 'COT-2025-004', clientId: '4', clientName: 'Corporativo Prisma SA', date: '2025-03-10', items: [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 10, unitPrice: 28000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 10, unitPrice: 5000 }], subtotal: 330000, iva: 52800, total: 382800, status: 'Enviada' },
-];
+// Helper to generate quotes
+const clientNames = ['María García López', 'Hotel Grand Palace', 'Restaurante La Hacienda', 'Corporativo Prisma SA', 'Ana Martínez Ruiz'];
+const clientIds = ['1', '2', '3', '4', '5'];
+const quoteStatuses: ('Borrador' | 'Enviada' | 'Aceptada' | 'Rechazada')[] = ['Borrador', 'Enviada', 'Aceptada', 'Rechazada'];
+
+function genQuotes(): Quote[] {
+  const quotes: Quote[] = [];
+  const items = [
+    [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 3, unitPrice: 68000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }],
+    [{ productId: '1', productName: 'Candil Clásico Imperial', quantity: 1, unitPrice: 45000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 1, unitPrice: 5000 }],
+    [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 5, unitPrice: 28000 }, { productId: '4', productName: 'Lámpara Colgante Diamante', quantity: 8, unitPrice: 12000 }],
+    [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 2, unitPrice: 28000 }],
+    [{ productId: '4', productName: 'Lámpara Colgante Diamante', quantity: 4, unitPrice: 12000 }, { productId: '6', productName: 'Servicio de Limpieza', quantity: 2, unitPrice: 3500 }],
+    [{ productId: '1', productName: 'Candil Clásico Imperial', quantity: 2, unitPrice: 45000 }],
+  ];
+  const dates = [
+    '2025-01-05','2025-01-12','2025-01-18','2025-01-25',
+    '2025-02-01','2025-02-08','2025-02-14','2025-02-20','2025-02-25',
+    '2025-03-01','2025-03-03','2025-03-05','2025-03-07','2025-03-08','2025-03-10','2025-03-12',
+    '2025-03-14','2025-03-15','2025-03-17','2025-03-18','2025-03-19','2025-03-20','2025-03-21',
+    '2025-03-22','2025-03-23','2025-03-24','2025-03-25','2025-03-26','2025-03-27','2025-03-28',
+  ];
+  const statusDist = [
+    'Aceptada','Enviada','Borrador','Enviada','Rechazada',
+    'Aceptada','Enviada','Borrador','Aceptada','Enviada',
+    'Borrador','Enviada','Aceptada','Rechazada','Borrador',
+    'Enviada','Aceptada','Borrador','Enviada','Rechazada',
+    'Aceptada','Borrador','Enviada','Aceptada','Enviada',
+    'Borrador','Rechazada','Enviada','Aceptada','Borrador',
+  ];
+  for (let i = 0; i < 30; i++) {
+    const ci = i % 5;
+    const ii = items[i % items.length];
+    const subtotal = ii.reduce((s, it) => s + it.quantity * it.unitPrice, 0);
+    const iva = subtotal * 0.16;
+    quotes.push({
+      id: String(i + 1),
+      number: `COT-2025-${String(i + 1).padStart(3, '0')}`,
+      clientId: clientIds[ci],
+      clientName: clientNames[ci],
+      date: dates[i],
+      items: ii,
+      subtotal,
+      iva,
+      total: subtotal + iva,
+      status: statusDist[i] as Quote['status'],
+    });
+  }
+  return quotes;
+}
+
+export const mockQuotes: Quote[] = genQuotes();
 
 export const mockPayments: Payment[] = [
   { id: 'p1', saleNoteId: '1', amount: 127020, method: 'Transferencia', date: '2025-02-20', reference: 'TRF-001' },
   { id: 'p2', saleNoteId: '1', amount: 127020, method: 'Transferencia', date: '2025-02-25', reference: 'TRF-002' },
   { id: 'p3', saleNoteId: '2', amount: 4000, method: 'Efectivo', date: '2025-03-08', reference: '' },
+  { id: 'p4', saleNoteId: '3', amount: 32480, method: 'Tarjeta', date: '2025-02-15', reference: 'TC-001' },
+  { id: 'p5', saleNoteId: '4', amount: 50000, method: 'Transferencia', date: '2025-03-01', reference: 'TRF-003' },
+  { id: 'p6', saleNoteId: '5', amount: 55680, method: 'Transferencia', date: '2025-03-10', reference: 'TRF-004' },
+  { id: 'p7', saleNoteId: '5', amount: 55680, method: 'Cheque', date: '2025-03-15', reference: 'CHQ-001' },
+  { id: 'p8', saleNoteId: '6', amount: 104400, method: 'Transferencia', date: '2025-03-12', reference: 'TRF-005' },
+  { id: 'p9', saleNoteId: '8', amount: 20000, method: 'Efectivo', date: '2025-03-18', reference: '' },
+  { id: 'p10', saleNoteId: '10', amount: 8120, method: 'Transferencia', date: '2025-03-20', reference: 'TRF-006' },
 ];
 
-export const mockSaleNotes: SaleNote[] = [
-  { id: '1', number: 'NV-2025-001', quoteId: '1', clientId: '2', clientName: 'Hotel Grand Palace', date: '2025-02-20', items: [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 3, unitPrice: 68000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }], subtotal: 219000, iva: 35040, total: 254040, status: 'Pagado', payments: [mockPayments[0], mockPayments[1]] },
-  { id: '2', number: 'NV-2025-002', clientId: '5', clientName: 'Ana Martínez Ruiz', date: '2025-03-08', items: [{ productId: '6', productName: 'Servicio de Limpieza', quantity: 2, unitPrice: 3500 }], subtotal: 7000, iva: 1120, total: 8120, status: 'Pendiente', payments: [mockPayments[2]] },
-];
+function genSaleNotes(): SaleNote[] {
+  const notes: SaleNote[] = [];
+  const items = [
+    [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 3, unitPrice: 68000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }],
+    [{ productId: '6', productName: 'Servicio de Limpieza', quantity: 2, unitPrice: 3500 }],
+    [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 1, unitPrice: 28000 }],
+    [{ productId: '1', productName: 'Candil Clásico Imperial', quantity: 1, unitPrice: 45000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 1, unitPrice: 5000 }],
+    [{ productId: '4', productName: 'Lámpara Colgante Diamante', quantity: 8, unitPrice: 12000 }],
+    [{ productId: '2', productName: 'Candil Minimalista Prisma', quantity: 3, unitPrice: 28000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }],
+    [{ productId: '1', productName: 'Candil Clásico Imperial', quantity: 2, unitPrice: 45000 }],
+    [{ productId: '4', productName: 'Lámpara Colgante Diamante', quantity: 3, unitPrice: 12000 }, { productId: '6', productName: 'Servicio de Limpieza', quantity: 1, unitPrice: 3500 }],
+    [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 1, unitPrice: 68000 }],
+    [{ productId: '6', productName: 'Servicio de Limpieza', quantity: 2, unitPrice: 3500 }],
+  ];
+  const dates = [
+    '2025-02-01','2025-02-10','2025-02-14','2025-02-22','2025-03-01',
+    '2025-03-05','2025-03-08','2025-03-10','2025-03-12','2025-03-15',
+    '2025-03-17','2025-03-18','2025-03-19','2025-03-20','2025-03-21',
+    '2025-03-22','2025-03-23','2025-03-24','2025-03-25','2025-03-26',
+  ];
+  const statusDist: ('Pendiente' | 'Pagado' | 'Cancelado')[] = [
+    'Pagado','Pendiente','Pagado','Pendiente','Pagado',
+    'Pagado','Pendiente','Pendiente','Cancelado','Pagado',
+    'Pendiente','Pendiente','Pagado','Pendiente','Cancelado',
+    'Pendiente','Pagado','Pendiente','Pendiente','Pagado',
+  ];
+  // Group payments by saleNoteId
+  const paymentMap: Record<string, Payment[]> = {};
+  mockPayments.forEach(p => {
+    if (!paymentMap[p.saleNoteId]) paymentMap[p.saleNoteId] = [];
+    paymentMap[p.saleNoteId].push(p);
+  });
+
+  for (let i = 0; i < 20; i++) {
+    const ci = i % 5;
+    const ii = items[i % items.length];
+    const subtotal = ii.reduce((s, it) => s + it.quantity * it.unitPrice, 0);
+    const iva = subtotal * 0.16;
+    const id = String(i + 1);
+    notes.push({
+      id,
+      number: `NV-2025-${String(i + 1).padStart(3, '0')}`,
+      clientId: clientIds[ci],
+      clientName: clientNames[ci],
+      date: dates[i],
+      items: ii,
+      subtotal,
+      iva,
+      total: subtotal + iva,
+      status: statusDist[i],
+      payments: paymentMap[id] || [],
+    });
+  }
+  return notes;
+}
+
+export const mockSaleNotes: SaleNote[] = genSaleNotes();
 
 export const mockInvoices: Invoice[] = [
   { id: '1', number: 'FAC-2025-001', saleNoteId: '1', clientId: '2', clientName: 'Hotel Grand Palace', rfc: 'HGP851001ABC', razonSocial: 'Hotel Grand Palace SA de CV', regimenFiscal: '601 - General de Ley', usoCfdi: 'G03 - Gastos en general', date: '2025-02-22', items: [{ productId: '3', productName: 'Candil Venecia Cristal', quantity: 3, unitPrice: 68000 }, { productId: '5', productName: 'Servicio de Instalación', quantity: 3, unitPrice: 5000 }], subtotal: 219000, iva: 35040, total: 254040 },
